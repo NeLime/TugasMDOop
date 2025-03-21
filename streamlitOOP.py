@@ -50,7 +50,7 @@ class ObesityModel:
         return self.data.head()
 
 # Inisialisasi model
-obesity_model = ObesityModel("E:\\ML\\archive (10)\\ObesityDataSet_raw_and_data_sinthetic.csv")
+obesity_model = ObesityModel("https://raw.githubusercontent.com/username/repository/main/ObesityDataSet_raw_and_data_sinthetic.csv")
 obesity_model.train_model()
 
 # Streamlit App
