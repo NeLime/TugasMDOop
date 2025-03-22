@@ -13,7 +13,7 @@ class DataPreprocessor:
     def fit(self, X: pd.DataFrame):
         self.categorical_cols = X.select_dtypes(include='object').columns.tolist()
         self.numeric_cols = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
-        self.ohe = OneHotEncoder(sparse=False, handle_unknown='ignore')
+        self.ohe = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
         self.scaler = MinMaxScaler()
         if self.categorical_cols:
             self.ohe.fit(X[self.categorical_cols])
