@@ -21,7 +21,7 @@ model.train(X_processed, y)
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page:", ["Raw Data", "Data Visualization", "Obesity Prediction"])
+page = st.sidebar.radio("Choose a page:", ["Data Visualization", "Obesity Prediction"])
 
 
 # Data Visualization Page
