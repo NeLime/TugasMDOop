@@ -54,22 +54,22 @@ elif page == "Obesity Prediction":
     with col1:
         gender = st.selectbox("Gender", ["Male", "Female"])
         age = st.slider("Age", 10, 80, 25)
-        height = st.slider("Height (in meters)", 1.0, 2.5, 1.70, step=0.01)
-        weight = st.slider("Weight (in kg)", 30, 200, 70)
-        family_history = st.selectbox("Family history of overweight", ["yes", "no"])
-        favc = st.selectbox("Frequent consumption of high calorie food", ["yes", "no"])
-        fcvc = st.slider("Vegetable consumption frequency (1-3)", 1, 3, 2)
+        height = st.slider("Height", 1.0, 2.5, 1.70, step=0.01)
+        weight = st.slider("Weight", 30, 200, 70)
+        family_history = st.selectbox("Family history with overweight", ["yes", "no"])
+        favc = st.selectbox("FAVC", ["yes", "no"])
+        fcvc = st.slider("FCVC", 1, 3, 2)
 
     with col2:
-        ncp = st.slider("Main meals per day", 1, 4, 3)
-        caec = st.selectbox("Eating between meals", ["no", "Sometimes", "Frequently", "Always"])
-        smoke = st.selectbox("Smokes", ["no", "yes"])
-        ch2o = st.slider("Water consumption (liters/day)", 1.0, 3.0, 2.0)
-        scc = st.selectbox("Calories monitoring", ["no", "yes"])
-        faf = st.slider("Physical activity frequency (times/week)", 0.0, 3.0, 1.0)
-        tue = st.slider("Daily screen time (hours)", 0.0, 2.0, 1.0)
-        calc = st.selectbox("Alcohol consumption", ["no", "Sometimes", "Frequently", "Always"])
-        mtrans = st.selectbox("Transportation method", ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"])
+        ncp = st.slider("NCP", 1, 4, 3)
+        caec = st.selectbox("CAEC", ["no", "Sometimes", "Frequently", "Always"])
+        smoke = st.selectbox("Smoke", ["no", "yes"])
+        ch2o = st.slider("CH2O", 1.0, 3.0, 2.0)
+        scc = st.selectbox("SCC", ["no", "yes"])
+        faf = st.slider("FAF", 0.0, 3.0, 1.0)
+        tue = st.slider("TUE", 0.0, 2.0, 1.0)
+        calc = st.selectbox("CALC", ["no", "Sometimes", "Frequently", "Always"])
+        mtrans = st.selectbox("MTRANS", ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"])
 
     input_data = {
         'Gender': gender,
