@@ -1,6 +1,3 @@
-# Name : Kristian Dinata
-# NIM : 2702285952
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
