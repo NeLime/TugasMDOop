@@ -2,99 +2,75 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 from model import DataPreprocessor, RandomForestModel
 
+# Title and description
+st.title("Machine Learning App")
+st.markdown("This app will predict your **obesity level**!")
+
 # Load dataset
-df = pd.read_csv('ObesityDataSet_raw_and_data_sinthetic.csv')
+df = pd.read_csv("ObesityDataSet_raw_and_data_sinthetic.csv")
+X = df.drop("NObeyesdad", axis=1)
+y = df["NObeyesdad"]
 
-# Separate features and target
-X = df.drop('NObeyesdad', axis=1)
-y = df['NObeyesdad']
-
-# Initialize preprocessor and transform the data
+# Preprocessing and model
 preprocessor = DataPreprocessor()
 X_processed = preprocessor.fit_transform(X)
-
-# Train the Random Forest model
-model = RandomForestModel(n_estimators=100, random_state=42)
+model = RandomForestModel()
 model.train(X_processed, y)
 
-# Sidebar menu
+# Sidebar navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page:", ["Raw Data", "Data Visualization", "Obesity Prediction"])
 
-# Page 1: Display raw data
+# Raw Data Page
 if page == "Raw Data":
-    st.header("📄 Raw Obesity Dataset")
-    st.write("Below is the original dataset used for training:")
-
+    st.header("Raw Obesity Dataset")
+    st.markdown("This is a raw data")
     st.dataframe(df)
-    st.markdown(f"**Total Rows:** {df.shape[0]} &nbsp;&nbsp;&nbsp; **Total Columns:** {df.shape[1]}")
 
-    st.subheader("Preview (Top 5 Rows)")
-    st.table(df.head())
-
-# Page 2: Data visualization
+# Data Visualization Page
 elif page == "Data Visualization":
-    st.header("📊 Data Visualization")
+    st.header("Data Visualization")
 
-    # Target class distribution
     st.subheader("Obesity Class Distribution")
-    class_counts = df['NObeyesdad'].value_counts()
-    fig1, ax1 = plt.subplots()
-    sns.barplot(x=class_counts.index, y=class_counts.values, ax=ax1)
-    ax1.set_xlabel("Obesity Category")
-    ax1.set_ylabel("Count")
-    ax1.set_xticklabels(ax1.get_xticklabels(), rotation=45, ha='right')
-    ax1.set_title("Distribution of Obesity Levels")
-    st.pyplot(fig1)
+    fig, ax = plt.subplots()
+    sns.countplot(data=df, x="NObeyesdad", order=df["NObeyesdad"].value_counts().index, ax=ax)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
+    st.pyplot(fig)
 
-    # Correlation matrix
-    st.subheader("Correlation Between Numeric Features")
-    numeric_cols = preprocessor.numeric_cols
-    corr = df[numeric_cols].corr()
+    st.subheader("Height vs Weight by Obesity Class")
     fig2, ax2 = plt.subplots()
-    sns.heatmap(corr, annot=True, cmap="Blues", ax=ax2)
-    ax2.set_title("Correlation Matrix")
+    sns.scatterplot(data=df, x="Height", y="Weight", hue="NObeyesdad", ax=ax2)
     st.pyplot(fig2)
 
-    # Example: Weight distribution
-    st.subheader("Weight Distribution")
-    fig3, ax3 = plt.subplots()
-    ax3.hist(df['Weight'], bins=20, color='skyblue', edgecolor='black')
-    ax3.set_xlabel("Weight (kg)")
-    ax3.set_ylabel("Frequency")
-    ax3.set_title("Weight Histogram")
-    st.pyplot(fig3)
-
-# Page 3: Prediction interface
+# Prediction Page
 elif page == "Obesity Prediction":
-    st.header("🤖 Obesity Classification Prediction")
+    st.header("Obesity Classification Prediction")
     st.write("Fill in the following information to get a prediction:")
 
-    # Numeric inputs
-    age = st.slider("Age", 10, 80, 25)
-    height = st.slider("Height (in meters)", 1.0, 2.5, 1.70, step=0.01)
-    weight = st.slider("Weight (in kg)", 30, 200, 70)
-    fcvc = st.slider("Vegetable consumption frequency (1-3)", 1, 3, 2)
-    ncp = st.slider("Main meals per day", 1, 4, 3)
-    ch2o = st.slider("Water consumption (liters/day)", 1.0, 3.0, 2.0)
-    faf = st.slider("Physical activity frequency (times/week)", 0.0, 3.0, 1.0)
-    tue = st.slider("Daily screen time (hours)", 0.0, 2.0, 1.0)
+    col1, col2 = st.columns(2)
 
-    # Categorical inputs
-    gender = st.selectbox("Gender", ["Male", "Female"])
-    family_history = st.selectbox("Family history of overweight", ["yes", "no"])
-    favc = st.selectbox("Frequent consumption of high calorie food", ["yes", "no"])
-    caec = st.selectbox("Eating between meals", ["no", "Sometimes", "Frequently", "Always"])
-    smoke = st.selectbox("Smokes", ["no", "yes"])
-    scc = st.selectbox("Calories monitoring", ["no", "yes"])
-    calc = st.selectbox("Alcohol consumption", ["no", "Sometimes", "Frequently", "Always"])
-    mtrans = st.selectbox("Transportation method", 
-                           ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"])
+    with col1:
+        gender = st.selectbox("Gender", ["Male", "Female"])
+        age = st.slider("Age", 10, 80, 25)
+        height = st.slider("Height (in meters)", 1.0, 2.5, 1.70, step=0.01)
+        weight = st.slider("Weight (in kg)", 30, 200, 70)
+        family_history = st.selectbox("Family history of overweight", ["yes", "no"])
+        favc = st.selectbox("Frequent consumption of high calorie food", ["yes", "no"])
+        fcvc = st.slider("Vegetable consumption frequency (1-3)", 1, 3, 2)
 
-    # Create input DataFrame
+    with col2:
+        ncp = st.slider("Main meals per day", 1, 4, 3)
+        caec = st.selectbox("Eating between meals", ["no", "Sometimes", "Frequently", "Always"])
+        smoke = st.selectbox("Smokes", ["no", "yes"])
+        ch2o = st.slider("Water consumption (liters/day)", 1.0, 3.0, 2.0)
+        scc = st.selectbox("Calories monitoring", ["no", "yes"])
+        faf = st.slider("Physical activity frequency (times/week)", 0.0, 3.0, 1.0)
+        tue = st.slider("Daily screen time (hours)", 0.0, 2.0, 1.0)
+        calc = st.selectbox("Alcohol consumption", ["no", "Sometimes", "Frequently", "Always"])
+        mtrans = st.selectbox("Transportation method", ["Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"])
+
     input_data = {
         'Gender': gender,
         'Age': age,
@@ -113,24 +89,20 @@ elif page == "Obesity Prediction":
         'CALC': calc,
         'MTRANS': mtrans
     }
+
     user_df = pd.DataFrame([input_data])
 
-    st.subheader("Your Input:")
-    st.table(user_df.T)
+    st.subheader("Data input by user")
+    st.dataframe(user_df)
 
-    # Preprocess and predict
     X_user_processed = preprocessor.transform(user_df)
     pred_proba = model.predict_proba(X_user_processed)[0]
     pred_class = model.predict(X_user_processed)[0]
 
-    # Show prediction probabilities
-    st.subheader("Prediction Probabilities:")
-    prob_df = pd.DataFrame({
-        'Obesity Class': model.classes_,
-        'Probability (%)': (pred_proba * 100).round(2)
-    })
-    st.table(prob_df)
+    st.subheader("Obesity Prediction")
+    proba_df = pd.DataFrame([pred_proba], columns=model.classes_)
+    st.dataframe(proba_df)
 
-    # Final prediction
-    st.subheader("Final Prediction:")
-    st.markdown(f"**Predicted obesity level: `{pred_class}`**")
+    st.markdown("### The predicted output is:")
+    st.success(f"{pred_class}")
+
