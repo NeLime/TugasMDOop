@@ -23,16 +23,10 @@ model.train(X_processed, y)
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page:", ["Raw Data", "Data Visualization", "Obesity Prediction"])
 
-# Raw Data Page
-if page == "Raw Data":
-    st.header("Raw Obesity Dataset")
-    st.markdown("This is a raw data")
-    st.dataframe(df)
-
 
 # Data Visualization Page
 elif page == "Data Visualization":
-    st.markdown("## 📊 Machine Learning App")
+    st.markdown("## Machine Learning App")
     st.info("This app will predict your obesity level!")
 
     with st.expander("Data"):
