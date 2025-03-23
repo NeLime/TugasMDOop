@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from model import DataPreprocessor, RandomForestModel
 
-# Title and description
+# Title 
 st.title("Machine Learning App")
 
 # Load dataset
@@ -23,7 +23,7 @@ st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page:", ["Data Visualization", "Obesity Prediction"])
 
 
-# Data Visualization Page
+# Data Visualization
 if page == "Data Visualization":
     st.info("This app will predict your obesity level!")
 
@@ -41,7 +41,7 @@ if page == "Data Visualization":
 
 
 
-# Prediction Page
+# Prediction 
 elif page == "Obesity Prediction":
     st.header("Obesity Classification Prediction")
     st.write("Fill in the following information to get a prediction:")
