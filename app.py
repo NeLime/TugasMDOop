@@ -6,7 +6,6 @@ from model import DataPreprocessor, RandomForestModel
 
 # Title and description
 st.title("Machine Learning App")
-st.markdown("This app will predict your **obesity level**!")
 
 # Load dataset
 df = pd.read_csv("ObesityDataSet_raw_and_data_sinthetic.csv")
