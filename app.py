@@ -28,6 +28,7 @@ if page == "Data Visualization":
     st.info("This app will predict your obesity level!")
 
     with st.expander("Data"):
+        st.write("This is raw data")
         st.dataframe(df)
 
     with st.expander("Data Visualization"):
