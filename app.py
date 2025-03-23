@@ -25,7 +25,6 @@ page = st.sidebar.radio("Choose a page:", ["Data Visualization", "Obesity Predic
 
 # Data Visualization Page
 if page == "Data Visualization":
-    st.markdown("## Machine Learning App")
     st.info("This app will predict your obesity level!")
 
     with st.expander("Data"):
