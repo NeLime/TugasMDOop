@@ -1,6 +1,3 @@
-# Nama : Kristian Dinata
-# NIM : 2702285952
-
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
