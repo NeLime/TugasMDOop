@@ -34,6 +34,7 @@ if page == "Data Visualization":
     with st.expander("Data Visualization"):
         fig, ax = plt.subplots()
         sns.scatterplot(data=df, x="Height", y="Weight", hue="NObeyesdad", palette="bright", ax=ax)
+        ax.legend(fontsize='small')
         ax.set_xlabel("Height")
         ax.set_ylabel("Weight")
         st.pyplot(fig)
