@@ -29,20 +29,23 @@ if page == "Raw Data":
     st.markdown("This is a raw data")
     st.dataframe(df)
 
+
 # Data Visualization Page
 elif page == "Data Visualization":
-    st.header("Data Visualization")
+    st.markdown("## 📊 Machine Learning App")
+    st.info("This app will predict your obesity level!")
 
-    st.subheader("Obesity Class Distribution")
-    fig, ax = plt.subplots()
-    sns.countplot(data=df, x="NObeyesdad", order=df["NObeyesdad"].value_counts().index, ax=ax)
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right")
-    st.pyplot(fig)
+    with st.expander("Data"):
+        st.dataframe(df)
 
-    st.subheader("Height vs Weight by Obesity Class")
-    fig2, ax2 = plt.subplots()
-    sns.scatterplot(data=df, x="Height", y="Weight", hue="NObeyesdad", ax=ax2)
-    st.pyplot(fig2)
+    with st.expander("Data Visualization"):
+        st.subheader("Height vs Weight by Obesity Category")
+        fig, ax = plt.subplots()
+        sns.scatterplot(data=df, x="Height", y="Weight", hue="NObeyesdad", palette="bright", ax=ax)
+        ax.set_xlabel("Height")
+        ax.set_ylabel("Weight")
+        st.pyplot(fig)
+
 
 # Prediction Page
 elif page == "Obesity Prediction":
