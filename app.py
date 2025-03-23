@@ -32,9 +32,12 @@ if page == "Raw Data":
 
 # Data Visualization Page
 elif page == "Data Visualization":
-    st.markdown("## Machine Learning App")
+    st.markdown("## 📊 Machine Learning App")
     st.info("This app will predict your obesity level!")
-    
+
+    with st.expander("Data"):
+        st.dataframe(df)
+
     with st.expander("Data Visualization"):
         st.subheader("Height vs Weight by Obesity Category")
         fig, ax = plt.subplots()
@@ -42,6 +45,7 @@ elif page == "Data Visualization":
         ax.set_xlabel("Height")
         ax.set_ylabel("Weight")
         st.pyplot(fig)
+
 
 
 # Prediction Page
