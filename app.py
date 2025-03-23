@@ -32,7 +32,6 @@ if page == "Data Visualization":
         st.dataframe(df)
 
     with st.expander("Data Visualization"):
-        st.subheader("Height vs Weight by Obesity Category")
         fig, ax = plt.subplots()
         sns.scatterplot(data=df, x="Height", y="Weight", hue="NObeyesdad", palette="bright", ax=ax)
         ax.set_xlabel("Height")
